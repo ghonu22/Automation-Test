@@ -28,7 +28,7 @@ jobs:
         path: playwright-report/
         retention-days: 30
     - name: Send Email Notification
-      uses: dawidd6/action-send-mail@v3
+      uses: dawidd6/action-send-mail@v4
       with:
         # SMTP Server configuration (Example using Gmail SMTP)
         server_address: smtp.gmail.com
