@@ -1,0 +1,16 @@
+{
+  "login": {
+    "username": "automation_user",
+    "password": "SuperSecretPassword!"
+  },
+  "inputs": {
+    "number": "42",
+    "email": "qa@engineer.com",
+    "date": "2026-06-20"
+  },
+  "expectedText": {
+    "alertMessage": "Form Submitted!",
+    "delayedParagraph": "Target content loaded successfully!",
+    "droppedState": "Dropped!"
+  }
+}
