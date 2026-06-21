@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import path from 'path';
 
 export class PlaygroundPage {
   readonly page: Page;
