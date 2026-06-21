@@ -18,6 +18,7 @@ jobs:
     - name: Check Environment Versions
       run: |
          node -v
+         npm -v
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
