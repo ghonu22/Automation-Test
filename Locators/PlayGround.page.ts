@@ -1,5 +1,4 @@
 import { Page, Locator } from '@playwright/test';
-import path from 'path';
 
 export class PlaygroundPage {
   readonly page: Page;
@@ -81,11 +80,6 @@ export class PlaygroundPage {
     this.closeModalBtn = page.getByTestId('close-modal-button');
   }
   async goto() {
-    // 1. Resolve the absolute path relative to this script's location
-    // Adjust the '../' depending on how deep your page object file is nested
-    const localFilePath = path.resolve(__dirname, '../TestMeSite.html'); 
-    
-    // 2. Build the correct file:// URL dynamically
-    await this.page.goto(`file://${localFilePath}`);
+    await this.page.goto('file:///C:/Test/Automation%20Test/TestMeSite.html');
   }
 }

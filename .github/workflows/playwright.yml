@@ -1,5 +1,7 @@
 name: Playwright Tests
 on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at 00:00 UTC
   push:
     branches: [ main, master ]
   pull_request:
@@ -25,3 +27,29 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Send Email Notification
+      uses: dawidd6/action-send-mail@v3
+      with:
+        # SMTP Server configuration (Example using Gmail SMTP)
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        
+        # Email Content Configuration
+        subject: "Playwright Automation Run: ${{ steps.run-tests.outcome == 'success' && 'PASSED' || 'FAILED' }}"
+        to: romjapan1@gmail.com # <-- Replace with your actual email
+        from: Playwright Automation Runner
+        body: |
+          The daily automated test run has completed.
+          
+          Result Status: ${{ steps.run-tests.outcome }}
+          Repository: ${{ github.repository }}
+          Workflow Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        
+        # Optional: Attach the HTML zip report only if a test failed
+        attachments: ${{ steps.run-tests.outcome == 'failure' && 'playwright-report.tar.gz' || '' }}
+
+    - name: Enforce Workflow Failure State
+      if: steps.run-tests.outcome == 'failure'
+      run: exit 1
