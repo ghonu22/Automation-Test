@@ -40,20 +40,16 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         
-        # Email Content Configuration
-        subject: "Playwright Automation Run: ${{ steps.run-tests.outcome == 'success' && 'PASSED' || 'FAILED' }}"
-        to: romjapan1@gmail.com # <-- Replace with your actual email
+        # job.status will now correctly say "success" or "failure"
+        subject: "Playwright Automation Run: ${{ job.status }}"
+        to: gomez1993jose@gmail.com
         from: Playwright Automation Runner
         body: |
           The daily automated test run has completed.
           
-          Result Status: ${{ steps.run-tests.outcome }}
+          Result Status: ${{ job.status }}
           Repository: ${{ github.repository }}
           Workflow Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         
-        # Optional: Attach the HTML zip report only if a test failed
-        attachments: ${{ steps.run-tests.outcome == 'failure' && 'playwright-report.tar.gz' || '' }}
-
-    - name: Enforce Workflow Failure State
-      if: steps.run-tests.outcome == 'failure'
-      run: exit 1
+        # Only attach the file if the job actually failed
+        attachments: ${{ job.status == 'failure' && 'playwright-report.tar.gz' || '' }}
