@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { PlaygroundPage } from '../Locators/PlayGround.page';
-import * as testData from '../Testdata/testDatas.json';
+import * as testData from '../testdata/datas.json';
 
 test.describe('Automation Practice Playground Decoupled Suite', () => {
   let playground: PlaygroundPage;
